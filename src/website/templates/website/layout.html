@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'website/bootsrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/custom.css' %}">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+
+    <title>{% block page_title %} {% endblock %}</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Header -->
+
+        <header
+            class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+            <h1 class="my-0 mr-md-auto font-weight-normal">Bookstore</h1>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="{% url  'index' %}">Accueil</a>
+                <a class="p-2 text-dark" href="{% url 'catalog' %}">Catalogue</a>
+            </nav>
+
+            <form class="form-inline d-none d-md-flex mr-auto" action="{% url 'search' %}" method="get">
+                <input class="form-control" name="keyword" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Chercher</button>
+            </form>
+
+            <div id="cart">
+                <i class="fas fa-cart-shopping mr-3" data-toggle="collapse" data-target="#card-shopping-cart"
+                    role="button"></i>
+                <div class="card collapse" id="card-shopping-cart" style="width: 15rem;position: absolute;right: 30px">
+                    <div id="cart-items-list" class="card-body">
+                        <small>no item</small>
+                        {{ request.session.cart|json_script:"cart-data" }}
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- Sign In Modal -->
+        <div class="modal fade" id="signInModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sign In</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="signInEmail">Email address</label>
+                                <input type="email" class="form-control" id="signInEmail">
+                            </div>
+                            <div class="form-group">
+                                <label for="signInPassword">Password</label>
+                                <input type="password" class="form-control" id="signInPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sign Up Modal -->
+        <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sign Up</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="signUpEmail">Email address</label>
+                                <input type="email" class="form-control" id="signUpEmail">
+                            </div>
+                            <div class="form-group">
+                                <label for="signUpPassword">Password</label>
+                                <input type="password" class="form-control" id="signUpPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="repeatPassword">Repeat Password</label>
+                                <input type="password" class="form-control" id="repeatPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        </header>
+
+        {% block main_content %} {% endblock %}
+
+        <!-- Footer -->
+
+        <footer class="bg-white py-4 mt-auto">
+            <div class="container-fluid px-4 px-lg-5">
+                <div class="small text-center text-muted">Copyright &copy; 2023 - Bookstore</div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="{% static 'website/jquery-3.5.1.slim.min.js' %}"></script>
+    <script src="{% static 'website/bootsrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'website/bootsrap/js/bootstrap.min.js' %}"></script>
+    <script>
+        const CSRFToken = "{{ csrf_token }}"
+    </script>
+    <script src="{% static 'website/js/custom.js' %}"></script>
+</body>
+
+</html>

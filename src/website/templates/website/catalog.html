@@ -1,0 +1,33 @@
+{% extends "website/layout.html" %}
+
+{% block page_title %} Catalogue {% endblock %}
+
+{% block main_content %}
+<section id="featured" class="py-1">
+    <div class="container">
+        <div class="row">
+
+            {% for book in books %} 
+            <div class="col-4 col-md-3 mb-4 book-item" data-book-id="{{ book.id }}">
+                <div class="card h-100 border-0 box-shadow">
+                    <img src="{{ book.image }}" class="card-img-top" alt="...">
+                    <div class="card-body pb-0 pt-2">
+                        <a href="#">
+                            <h5 class="card-title">{{ book.title|truncatechars:30 }}</h5>
+                        </a>
+                        <p class="card-text">
+                            <span class="font-weight-bold">{{ book.authors }}</span>
+                            <br>
+                            Published in <span class="font-italic">{{ book.date_published|date:"Y" }}</span>
+                            <br>
+                            ${{ book.price }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+{% endblock %}

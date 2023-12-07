@@ -1,0 +1,15 @@
+<div class="col-4 col-md-3 mb-4" data-book-id="{{ book.id }}">
+    <div class="card h-100 border-0 box-shadow">
+        <img src="{{ book.image }}" class="card-img-top" alt="...">
+        <div class="card-body pb-0 pt-2">
+            <h5 class="card-title">{{ book.title|truncatechars:30 }}</h5>
+            <p class="card-text">
+                <span class="font-weight-bold">{{ book.authors }}</span>
+                <br>
+                Published in <span class="font-italic">{{ book.date_published|date:"Y" }}</span>
+                <br>
+                ${{ book.price }}
+            </p>
+        </div>
+    </div>
+</div>

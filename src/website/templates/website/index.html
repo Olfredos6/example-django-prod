@@ -1,0 +1,35 @@
+{% extends "website/layout.html" %}
+{% block page_title %} Accueil {% endblock %}
+
+{% block main_content %}
+{% for section in books_data %}
+<section id="featured" class="py-1">
+    <div class="container">
+        <h2 class="fw-light">{{ section.0 }}</h2>
+        <div class="row">
+
+            {% for book in section.1 %}
+            <div class="col-4 col-md-3 mb-4 book-item" data-book-id="{{ book.id }}">
+                <div class="card h-100 border-0 box-shadow">
+                    <img src="{{ book.image }}" class="card-img-top" alt="...">
+                    <div class="card-body pb-0 pt-2">
+                        <a href="#">
+                            <h5 class="card-title">{{ book.title|truncatechars:30 }}</h5>
+                        </a>
+                        <p class="card-text">
+                            <span class="font-weight-bold">{{ book.authors }}</span>
+                            <br>
+                            Published in <span class="font-italic">{{ book.date_published|date:"Y" }}</span>
+                            <br>
+                            ${{ book.price }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+{% endfor %}
+{% endblock %}

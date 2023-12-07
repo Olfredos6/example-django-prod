@@ -1,0 +1,92 @@
+{% extends "website/layout.html" %}
+{% load custom_filters %}
+
+{% block page_title %} Catalogue {% endblock %}
+
+{% block main_content %}
+
+<section id="featured" class="py-1">
+    <div class="container">
+        <h2 class="fw-light">{{ section.0 }}</h2>
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <!-- Book details -->
+                <div class="row">
+
+                    <!-- Book cover -->
+                    <div class="col-md-4">
+                        <img src="{{ book.image }}" alt="Book cover" class="img-fluid book-cover">
+                    </div>
+
+                    <!-- Book info -->
+                    <div class="col-md-8">
+                        <h4 class="card-title">{{ book.title }}</h4>
+
+
+                        <!-- Book rating -->
+                        <div class="stars">
+                            {{ book.rating|makestars }}
+                        </div>
+                        <p class="card-text">
+                            <span class="font-weight-bold">{{ book.authors }}</span>
+                            <br>
+                            Published in <span class="font-italic">{{ book.date_published|date:"Y" }}</span>
+                            <br>
+                            ${{ book.price }}
+                            <br>
+                            {{ book.categories.all|flatten_qs_on:"name" }}
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Second section -->
+            <div class="col-md-4">
+                <button id="btn-add-to-cart" type="button" class="btn btn-primary btn-sm"
+                data-book-id="{{ book.id }}"><i class="fas fa-cart-plus"></i> Add to cart</button>
+            </div>
+        </div>
+        <div class="row p-2">
+
+
+            <!-- Book description -->
+            <p>{{ book.description }}</p>
+        </div>
+    </div>
+</section>
+
+
+<section id="featured" class="py-1">
+    <div class="container">
+        <h2 class="fw-light">Similar books</h2>
+        <div class="row">
+
+            {% for book in similar_books %}
+            <div class="col-4 col-md-3 mb-4" data-book-id="{{ book.id }}">
+                <div class="card h-100 border-0 box-shadow">
+                    <img src="{{ book.image }}" class="img-fluid card-img-top img-smaller-cover" alt="...">
+                    <div class="card-body pb-0 pt-2">
+                        <a href="{% url 'book-detail' book.id %}">
+                            <h5 class="card-title">{{ book.title|truncatechars:30 }}</h5>
+                        </a>
+                        <p class="card-text">
+                            <span class="font-weight-bold">{{ book.authors }}</span>
+                            <br>
+                            Published in <span class="font-italic">{{ book.date_published|date:"Y" }}</span>
+                            <br>
+                            ${{ book.price }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
