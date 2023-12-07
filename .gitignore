@@ -178,3 +178,4 @@ pyrightconfig.json
 # Custom
 .env_var
 statics/
+ec2-user-data

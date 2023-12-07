@@ -3,9 +3,7 @@ version: '3.8'
 services:
 
   django:
-    build: 
-     - context: ./
-     - dockerfile: Dockerfile-prod
+    image: olfredos6/m2i-dj-ex-prod:main
     volumes:
       - ./statics:/statics
     env_file: ./.env_var
